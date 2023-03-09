@@ -1,0 +1,16 @@
+- name: Create dir
+  file:
+    path: ~/.ssh
+    state: directory
+
+- name: Disable fingerprint
+  ansible.builtin.shell:
+    cmd: |
+      echo 'Host *
+          StrictHostKeyChecking no
+          UserKnownHostsFile=/dev/null' | tee ~/.ssh/config 1>/dev/null
+
+- name: Permissions
+  ansible.builtin.file:
+    path: ~/.ssh/config
+    mode: '0400'
